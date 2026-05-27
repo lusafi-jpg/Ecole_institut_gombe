@@ -1,0 +1,58 @@
+ body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-card {
+            max-width: 400px;
+            width: 100%;
+            background: white;
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem;
+        }
+
+        .icon-box {
+            background-color: #eff6ff;
+            color: #2563eb;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem auto;
+        }
+
+        .btn-dark-custom {
+            background-color: #1e293b;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 500;
+            width: 100%;
+            transition: background 0.3s;
+        }
+
+        .btn-dark-custom:hover {
+            background-color: #0f172a;
+        }
+
+        .form-control {
+            padding-left: 2.75rem;
+        }
+
+        .input-group-icon {
+            position: absolute;
+            left: 10px;
+            bottom: 200PX;
+            top: 55%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            z-index: 10;
+        }

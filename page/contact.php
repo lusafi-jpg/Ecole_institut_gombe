@@ -1,0 +1,363 @@
+<?php
+// 1. TRAITEMENT DU FORMULAIRE (Tout en haut, avant le HTML)
+require_once 'database.php'; // Inclure la connexion à la base de données
+$message_status = "";
+
+// AJOUT CRUCIAL : On ne traite le code QUE si le formulaire a été soumis
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    
+    // Récupération sécurisée et blindée contre les index manquants
+    $nom_complet = isset($_POST['nom_complet']) ? strip_tags(trim($_POST['nom_complet'])) : '';
+    $email_raw   = isset($_POST['email']) ? trim($_POST['email']) : '';
+    $email       = filter_var($email_raw, FILTER_VALIDATE_EMAIL);
+    $sujet       = isset($_POST['sujet']) ? strip_tags(trim($_POST['sujet'])) : '';
+    $message     = isset($_POST['message']) ? strip_tags(trim($_POST['message'])) : '';
+
+    if (!empty($nom_complet) && !empty($email) && !empty($sujet) && !empty($message)) {
+        if (strlen($message) >= 10) {
+            // Insertion dans la base de données
+            $sql = "INSERT INTO contacts (nom_complet, email, sujet, message) VALUES (:nom_complet, :email, :sujet, :msg)";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([
+                ':nom_complet' => $nom_complet,
+                ':email' => $email,
+                ':sujet' => $sujet,
+                ':msg'   => $message
+            ]);
+            
+            $message_status = "<div class='alert alert-success shadow-sm'><i class='bi bi-check-circle-fill me-2'></i>Votre message a bien été envoyé ! L'administration vous répondra sous peu.</div>";
+        } else {
+            $message_status = "<div class='alert alert-warning shadow-sm'><i class='bi bi-exclamation-triangle-fill me-2'></i>Le message doit contenir au moins 10 caractères.</div>";
+        }
+    } else {
+        $message_status = "<div class='alert alert-danger shadow-sm'><i class='bi bi-x-circle-fill me-2'></i>Veuillez remplir tous les champs obligatoires avec une adresse email valide.</div>";
+    }
+}
+?>
+
+
+
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Institut de la Gombe 1</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+    <div class="container px-3">
+        <!-- Logo et Nom -->
+        <a class="navbar-brand d-flex align-items-center" href="../index.php">
+            <img src="../img/IMG-20260123-WA0001.jpg" alt="Logo" class="img-fluid rounded shadow me-2" style="max-height: 40px; width: auto;">
+            <span>Institut de la Gombe</span>
+        </a>
+        
+        <!-- Bouton Mobile -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <!-- Liens du menu -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link active" href="../index.php"><i class="bi bi-house-door me-1"></i>Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../page/apropos.php"><i class="bi bi-info-circle-fill me-1"></i>À propos</a>
+                </li>
+                
+                <!-- Menu déroulant (Dropdown) pour désencombrer la barre -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-grid-fill me-1"></i>Institution
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="../page/historique.php"><i class="bi bi-calendar-week me-2"></i>Historique</a></li>
+                        <li><a class="dropdown-item" href="../page/organigramme.php"><i class="bi bi-person-fill me-2"></i>Organigramme</a></li>
+                       
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../page/services.php"><i class="bi bi-briefcase me-1"></i>Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../page/inscription.php"><i class="bi bi-person-plus me-1"></i>Inscription</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../page/contact.php"><i class="bi bi-telephone-forward me-1"></i>Contact</a>
+                </li>
+                
+                <!-- Bouton Connexion mis en valeur -->
+                <li class="nav-item ms-lg-2">
+                    <a class="btn btn-outline-light btn-sm dynamic-nav-btn" href="../page/connexion.php">
+                        <i class="bi bi-person-rolodex me-1"></i>Connexion
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    <main class="container">
+        <!-- Page Header -->
+        <div class="hero-section">
+            <div class="container text-center">
+                <h1>Contactez-nous</h1>
+                <p class="lead">Nous sommes à votre écoute pour répondre à toutes vos questions</p>
+            </div>
+        </div>
+
+        <!-- Formulaire de contact et informations -->
+        <section class="content-section mt-4">
+            <div class="row">
+                <!-- Formulaire de contact -->
+                <div class="col-lg-8 mb-4">
+                    <div class="card card-custom">
+                        <div class="card-header-custom">
+                            <h3 class="mb-0"><i class="bi bi-envelope text-info"></i> Envoyez-nous un message</h3>
+                        </div>
+                        <div class="card-body">
+                            <form action="contact.php" method="POST">
+                                <!-- Nom -->
+                                <div class="mb-3">
+                                    <label for="contactNom" class="form-label">Nom complet *</label>
+                                    <input type="text" class="form-control" id="contactNom" name="nom_complet" required
+                                        placeholder="Entrez votre nom complet">
+                                </div>
+
+                                <!-- Email -->
+                                <div class="mb-3">
+                                    <label for="contactEmail" class="form-label">Adresse email *</label>
+                                    <input type="email" class="form-control" id="contactEmail" name="email" required
+                                        placeholder="exemple@email.com">
+                                </div>
+
+                                <!-- Sujet -->
+                                <div class="mb-3">
+                                    <label for="contactSujet" class="form-label">Sujet</label>
+                                    <select class="form-select" id="contactSujet" name="sujet">
+                                        <option value="">Sélectionnez un sujet</option>
+                                        <option value="inscription">Inscription</option>
+                                        <option value="information">Demande d'information</option>
+                                        <option value="visite">Demande de visite</option>
+                                        <option value="autre">Autre</option>
+                                    </select>
+                                </div>
+
+                                <!-- Message -->
+                                <div class="mb-3">
+                                    <label for="contactMessage" class="form-label">Message *</label>
+                                    <textarea class="form-control" id="contactMessage" name="message" rows="6" required
+                                        placeholder="Écrivez votre message ici..."></textarea>
+                                    <div class="form-text">Minimum 10 caractères</div>
+                                </div>
+
+                                <!-- Bouton de soumission -->
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary-custom btn-lg">Envoyer le
+                                        message</button>
+                                </div>
+
+                                <p class="text-muted mt-3">
+                                    <small>* Les champs marqués d'un astérisque sont obligatoires</small>
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Informations de contact -->
+                <div class="col-lg-4 mb-4">
+                    <!-- Coordonnées -->
+                    <div class="card card-custom mb-4">
+                        <div class="card-header-custom">
+                            <h5 class="mb-0"><i class="bi bi-geo-alt text-warning"></i> Coordonnées</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <h6>Adresse</h6>
+                                <p class="mb-0">
+                                    Avenue nzokotolo n°3b Q/cliniques <br>
+                                    C/gombe place de l'independance en face du palais de la justice
+                                </p>
+                            </div>
+                            <hr>
+                            <div class="mb-3">
+                                <h6>Téléphone</h6>
+                                <p class="mb-0">
+                                    <i class="bi bi-telephone-fill text-danger"></i> +243 812 375 607<br>
+                                    <i class="bi bi-telephone-fill text-danger"></i> +243 843 445 654
+                                </p>
+                            </div>
+                            <hr>
+                            <div class="mb-3">
+                                <h6>Email</h6>
+                                <p class="mb-0">
+                                    <i class="bi bi-envelope text-primary"></i> contact@institutdegombe1.cd<br>
+                                    <i class="bi bi-envelope text-primary"></i> info@institutdegombe1.cd
+                                </p>
+                            </div>
+                            <hr>
+                            <div>
+                                <h6>Horaires d'ouverture</h6>
+                                <p class="mb-0 small">
+                                    <strong>Lundi - Vendredi:</strong> 7h30 - 17h00<br>
+                                    <strong>Samedi:</strong> 8h00 - 12h00<br>
+                                    <strong>Dimanche:</strong> Fermé
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Carte Google Maps -->
+                    <div class="card card-custom">
+                        <div class="card-header-custom">
+                            <h5 class="mb-0"><i class="bi bi-pin-map-fill text-danger"></i> Localisation</h5>
+                        </div>
+                        <div class="card-body p-0">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3977.845915343133!2d15.307382112567147!3d-4.439769569100103!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2scd!4v1768254691208!5m2!1sen!2scd"
+                                width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Services de contact -->
+        <section class="content-section mt-4">
+            <h2 class="section-title">Services de Contact</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card card-custom text-center h-100">
+                        <div class="card-body">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;"><i
+                                    class="bi bi-file-earmark-text text-info"></i></div>
+                            <h5>Inscriptions</h5>
+                            <p>Pour toute question concernant les inscriptions, nos équipes sont à votre disposition
+                                pour vous accompagner.</p>
+                            <a href="inscription.php" class="btn btn-primary-custom">Formulaire
+                                d'inscription</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card card-custom text-center h-100">
+                        <div class="card-body">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;"><i
+                                    class="bi bi-info-circle-fill text-info"></i></div>
+                            <h5>Informations</h5>
+                            <p>Besoin d'informations sur nos programmes, nos services ou notre établissement ?
+                                Contactez-nous !</p>
+                            <a href="../page/apropos.php" class="btn btn-primary-custom">En savoir plus</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card card-custom text-center h-100">
+                        <div class="card-body">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;"><i class="bi bi-eye text-success"></i>
+                            </div>
+                            <h5>Visites</h5>
+                            <p>Vous souhaitez visiter notre établissement ? Organisez une visite en nous contactant à
+                                l'avance.</p>
+                            <a href="contact.php" class="btn btn-primary-custom">Demander une visite</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Réseaux sociaux -->
+        <section class="content-section mt-4">
+            <h2 class="section-title">Suivez-nous</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card card-custom">
+                        <div class="card-body text-center">
+                            <p class="lead mb-4">Restez connecté avec l'institut de la gombe 1</p>
+                            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                                <div class="text-center">
+                                    <div style="font-size: 2.5rem; margin-bottom: 0.5rem;"><i
+                                            class="bi bi-facebook text-info"></i></div>
+                                    <p class="small mb-0">Facebook</p>
+                                    <small class="text-muted">@institut_de_la_gombe_1</small>
+                                </div>
+                                <div class="text-center">
+                                    <div style="font-size: 2.5rem; margin-bottom: 0.5rem;"><i
+                                            class="bi bi-instagram text-danger"></i></div>
+                                    <p class="small mb-0">Instagram</p>
+                                    <small class="text-muted">@institut_de_la_gombe_1</small>
+                                </div>
+                                <div class="text-center">
+                                    <div style="font-size: 2.5rem; margin-bottom: 0.5rem;"><i
+                                            class="bi bi-twitter text-info"></i></div>
+                                    <p class="small mb-0">Twitter</p>
+                                    <small class="text-muted">@institut_de_la_gombe_1</small>
+                                </div>
+                                <div class="text-center">
+                                    <div style="font-size: 2.5rem; margin-bottom: 0.5rem;"><i
+                                            class="bi bi-youtube text-danger"></i></div>
+                                    <p class="small mb-0">YouTube</p>
+                                    <small class="text-muted">Institut de la Gombe 1</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-custom">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5>Institut de la Gombe 1</h5>
+                    <p>Votre partenaire dans l'éducation et l'excellence académique.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Liens rapides</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../index.php">Accueil</a></li>
+                        <li><a href="../page/apropos.php">À propos</a></li>
+                        <li><a href="../page/inscription.php">Inscription</a></li>
+                        <li><a href="../page/contact.php">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Contact</h5>
+                    <p>
+                        <i class="bi bi-geo-alt text-danger fs-8 me-1"></i> Avenue nzokotolo n°3 Q/cliniques C/gombe
+                        place de l'independance en face du palais de la justice<br>
+                        <i class="bi bi-envelope text-primary fs-8 me-1"></i> contact@ecole-excellence.cd<br>
+                        <i class="bi bi-telephone-fill text-danger fs-8 me-1"></i> +243 812375607
+                    </p>
+                </div>
+            </div>
+            <hr class="my-4" style="border-color: rgba(255,255,255,0.1);">
+            <div class="text-center">
+                <p>&copy; 2024 Institut de la Gombe 1 Tous droits réservés. | Programme Web I - L2 Math-Info</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

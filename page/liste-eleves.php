@@ -1,0 +1,257 @@
+<?php
+session_start();
+if (!isset($_SESSION['admin_connecte']) || $_SESSION['admin_connecte'] !== true) {
+    // Si pas connecté -> redirection immédiate vers la page de login
+    header('Location: login.php');
+    exit;
+}
+// 1. Connexion à la base de données
+require_once("database.php");
+
+// 2. Récupérer tous les élèves pour le tableau (du plus récent au plus ancien)
+$query = $pdo->query("SELECT * FROM inscriptions ORDER BY id DESC");
+$eleves = $query->fetchAll(PDO::FETCH_ASSOC);
+
+// 3. Calculer automatiquement le nombre total d'élèves pour le compteur
+$total_eleves = count($eleves);
+?>
+?>
+
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Élèves - Institut de la Gombe 1</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+   <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+    <div class="container px-3">
+        <!-- Logo et Nom -->
+        <a class="navbar-brand d-flex align-items-center" href="../index.php">
+            <img src="../img/IMG-20260123-WA0001.jpg" alt="Logo" class="img-fluid rounded shadow me-2" style="max-height: 40px; width: auto;">
+            <span>Institut de la Gombe</span>
+        </a>
+        
+        <!-- Bouton Mobile -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <!-- Liens du menu -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link active" href="../index.php"><i class="bi bi-house-door me-1"></i>Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../page/apropos.php"><i class="bi bi-info-circle-fill me-1"></i>À propos</a>
+                </li>
+                
+                <!-- Menu déroulant (Dropdown) pour désencombrer la barre -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-grid-fill me-1"></i>Institution
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="../page/historique.php"><i class="bi bi-calendar-week me-2"></i>Historique</a></li>
+                        <li><a class="dropdown-item" href="../page/organigramme.php"><i class="bi bi-person-fill me-2"></i>Organigramme</a></li>
+                       
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../page/services.php"><i class="bi bi-briefcase me-1"></i>Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../page/inscription.php"><i class="bi bi-person-plus me-1"></i>Inscription</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../page/contact.php"><i class="bi bi-telephone-forward me-1"></i>Contact</a>
+                </li>
+                
+                <!-- Bouton Connexion mis en valeur -->
+                <li class="nav-item ms-lg-2">
+                    <a class="btn btn-outline-light btn-sm dynamic-nav-btn" href="../page/connexion.php">
+                        <i class="bi bi-person-rolodex me-1"></i>Connexion
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+    <main class="container">
+        <!-- Page Header -->
+        <div class="hero-section">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h1>Liste des Élèves Inscrits</h1>
+                        <p class="lead">Consultez la liste complète des élèves de l'Institut de la Gombe 1</p>
+                    </div>
+                    <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                        <a href="inscription.php" class="btn btn-light btn-lg">
+                            <i class="bi bi-person-plus-fill text-muted"></i> Nouvelle inscription
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row text-center mb-4">
+    <div class="col-md-4 mb-3">
+        <div class="card border-0 shadow-sm p-3 rounded-3">
+            <h3 class="text-primary fw-bold mb-1"><?php echo $total_eleves; ?></h3>
+            <p class="text-muted small mb-0">Élèves inscrits</p>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card border-0 shadow-sm p-3 rounded-3">
+            <h3 class="text-success fw-bold mb-1">Aujourd'hui</h3>
+            <p class="text-muted small mb-0">Liste à jour</p>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card border-0 shadow-sm p-3 rounded-3">
+            <h3 class="text-info fw-bold mb-1">2024-2025</h3>
+            <p class="text-muted small mb-0">Année scolaire</p>
+        </div>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm rounded-3 overflow-hidden">
+    <div class="card-header bg-primary text-white p-3 d-flex align-items-center">
+        <h5 class="mb-0 fw-bold"><i class="bi bi-journal-text me-2"></i> Registre des Élèves</h5>
+    </div>
+    
+    <div class="table-responsive">
+        <table class="table align-middle mb-0 bg-white">
+            <thead class="bg-light text-uppercase font-monospace small text-muted">
+                <tr>
+                    <th class="ps-4">Nom</th>
+                    <th>Prénom</th>
+                    <th>Sexe</th>
+                    <th>Date de naissance</th>
+                    <th>Classe</th>
+                    <th>Téléphone</th>
+                    <th class="pe-4">Date d'inscription</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if ($total_eleves > 0): ?>
+                    <?php foreach ($eleves as $eleve): ?>
+                        <tr>
+                            <td class="ps-4 fw-bold text-dark">
+                                <?php echo htmlspecialchars(strtoupper($eleve['nom'])); ?>
+                            </td>
+                            
+                            <td>
+                                <?php echo htmlspecialchars(ucfirst(strtolower($eleve['prenom']))); ?>
+                            </td>
+                            
+                            <td>
+                                <?php echo ($eleve['sexe'] === 'M') ? 'Masculin' : 'Féminin'; ?>
+                            </td>
+                            
+                            <td class="text-secondary">
+                                <?php echo date('d/m/Y', strtotime($eleve['date_naissance'])); ?>
+                            </td>
+                            
+                            <td>
+                                <span class="badge bg-primary px-2 py-1 small rounded-pill">
+                                    <?php echo htmlspecialchars($eleve['classe']); ?>
+                                </span>
+                            </td>
+                            
+                            <td class="text-secondary font-monospace">
+                                <?php echo htmlspecialchars($eleve['telephone']); ?>
+                            </td>
+                            
+                            <td class="pe-4 text-muted small">
+                                <?php 
+                                    // Si tu as un champ créé_le dans ta BD, utilise-le, sinon affiche la date du jour formatée
+                                    echo isset($eleve['date_inscription']) ? date('d/m/Y', strtotime($eleve['date_inscription'])) : date('d/m/Y'); 
+                                ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="7" class="text-center py-5 text-muted">
+                            <i class="bi bi-folder-x display-6 d-block mb-2"></i>
+                            Aucun élève n'est encore inscrit dans l'établissement.
+                        </td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row mt-4 pt-2">
+    <div class="col-md-6 mb-3">
+        <div class="card border-0 shadow-sm p-4 text-center rounded-3 bg-light">
+            <h6 class="fw-bold mb-2">Nouvelle inscription ?</h6>
+            <p class="text-muted small">Inscrivez un nouvel élève dans notre établissement</p>
+            <a href="ajouter-eleve.php" class="btn btn-primary px-4 mt-2">Formulaire d'inscription</a>
+        </div>
+    </div>
+    <div class="col-md-6 mb-3">
+        <div class="card border-0 shadow-sm p-4 text-center rounded-3 bg-light">
+            <h6 class="fw-bold mb-2">Administration</h6>
+            <p class="text-muted small">Accédez au tableau de bord pour plus de statistiques</p>
+            <a href="login.php" class="btn btn-warning text-white px-4 mt-2" style="background-color: #f0ad4e; border: none;">Connexion Admin</a>
+        </div>
+    </div>
+</div>
+
+    <!-- Footer -->
+    <footer class="footer-custom">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5>Institut de la Gombe 1</h5>
+                    <p>Votre partenaire dans l'éducation et l'excellence académique.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Liens rapides</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../index.php">Accueil</a></li>
+                        <li><a href="../page/apropos.php">À propos</a></li>
+                        <li><a href="../page/inscription.php">Inscription</a></li>
+                        <li><a href="../page/contact.php">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Contact</h5>
+                    <p>
+                        <i class="bi bi-geo-alt text-danger fs-8 me-1"></i> Avenue nzokotolo n°3 Q/cliniques C/gombe
+                        place de l'independance en face du palais de la justice<br>
+                        <i class="bi bi-envelope text-primary fs-8 me-1"></i> contact@ecole-excellence.cd<br>
+                        <i class="bi bi-telephone-fill text-danger fs-8 me-1"></i> +243 812375607
+                    </p>
+                </div>
+            </div>
+            <hr class="my-4" style="border-color: rgba(255,255,255,0.1);">
+            <div class="text-center">
+                <p>&copy; 2024 Institut de la Gombe 1 Tous droits réservés. | Programme Web I - L2 Math-Info</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
