@@ -44,7 +44,6 @@
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="../page/historique.php"><i class="bi bi-calendar-week me-2"></i>Historique</a></li>
                         <li><a class="dropdown-item" href="../page/organigramme.php"><i class="bi bi-person-fill me-2"></i>Organigramme</a></li>
-                       
                     </ul>
                 </li>
 
