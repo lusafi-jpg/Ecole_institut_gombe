@@ -1,58 +1,4 @@
-<?php
-session_start();
 
-// 1. Protection de la page : Seul l'administrateur connecté peut y accéder
-if (!isset($_SESSION['admin_connecte']) || $_SESSION['admin_connecte'] !== true) {
-    header("Location: login.php");
-    exit;
-}
-
-// 2. Connexion à la base de données
-require_once("database.php");
-
-$message_succes = "";
-$message_erreur = "";
-
-// 3. Traitement de la soumission du formulaire
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    
-    // Récupération et nettoyage des données du formulaire
-    $nom = isset($_POST['nom']) ? trim($_POST['nom']) : '';
-    $prenom = isset($_POST['prenom']) ? trim($_POST['prenom']) : '';
-    $sexe = isset($_POST['sexe']) ? trim($_POST['sexe']) : '';
-    $date_naissance = isset($_POST['date_naissance']) ? trim($_POST['date_naissance']) : '';
-    $classe = isset($_POST['classe']) ? trim($_POST['classe']) : '';
-    $telephone = isset($_POST['telephone']) ? trim($_POST['telephone']) : '';
-
-    // Vérification que tous les champs obligatoires sont remplis
-    if (!empty($nom) && !empty($prenom) && !empty($sexe) && !empty($date_naissance) && !empty($classe) && !empty($telephone)) {
-        
-        try {
-            // Requête d'insertion SQL
-            $sql = "INSERT INTO inscriptions (nom, prenom, sexe, date_naissance, classe, telephone) 
-                    VALUES (:nom, :prenom, :sexe, :date_naissance, :classe, :telephone)";
-            
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute([
-                ':nom' => $nom,
-                ':prenom' => $prenom,
-                ':sexe' => $sexe,
-                ':date_naissance' => $date_naissance,
-                ':classe' => $classe,
-                ':telephone' => $telephone
-            ]);
-
-            $message_succes = "L'élève $prenom $nom a été inscrit avec succès !";
-            
-        } catch (PDOException $e) {
-            $message_erreur = "Erreur lors de l'enregistrement : " . $e->getMessage();
-        }
-        
-    } else {
-        $message_erreur = "Veuillez remplir tous les champs du formulaire.";
-    }
-}
-?>
 
 
 
@@ -75,18 +21,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="sidebar d-flex flex-column" id="sidebar">
         <h4 class="fw-bold mb-4 text-primary"><i class="bi bi-mortarboard-fill me-2"></i>Admin</h4>
         <nav class="nav flex-column mb-auto">
-            <a class="nav-link" href="../page/dashboard.php">
+            <a class="nav-link" href="../page/dashboard.html">
                 <i class="bi bi-speedometer2"></i> tableau de bord
             </a>
-            <a class="nav-link" href="../page/eleves.php">
+            <a class="nav-link" href="../page/eleves.html">
                 <i class="bi bi-people"></i> Élèves
             </a>
-            <a class="nav-link active" href="../page/ajouter-eleve.php">
+            <a class="nav-link active" href="../page/ajouter-eleve.html">
                 <i class="bi bi-person-plus"></i> Ajouter un élève
             </a>
         </nav>
         <hr class="text-secondary">
-        <a href="../index.php" class="nav-link text-danger">
+        <a href="../index.html" class="nav-link text-danger">
             <i class="bi bi-box-arrow-left"></i> Déconnexion
         </a>
     </div>
@@ -95,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="main-content">
         <header class="mb-4">
             <div class="d-flex align-items-center mb-3">
-                <a href="../page/eleves.php" class="text-secondary text-decoration-none small me-3">
+                <a href="../page/eleves.html" class="text-secondary text-decoration-none small me-3">
                     <i class="bi bi-arrow-left me-1"></i> Retour à la liste
                 </a>
                 <button class="btn btn-dark d-md-none ms-auto" onclick="toggleSidebar()">
@@ -106,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </header>
 
         <div class="card border-0 shadow-sm p-4 p-md-5 rounded-4 max-w-lg mx-auto" style="max-width: 800px;">
-            <form action="ajouter-eleve.php" method="post" id="addEleveForm">
+            <form action="ajouter-eleve.html" method="post" id="addEleveForm">
                 <div class="row g-4">
                     <div class="col-md-6">
                         <label class="form-label fw-medium text-secondary">Nom</label>
@@ -155,12 +101,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         crossorigin="anonymous"></script>
     <script>
         // Afficher le message de succès et rediriger après 2 secondes
-        <?php if (!empty($message_succes)): ?>
+        
             document.getElementById('successAlert').classList.remove('d-none');
             setTimeout(function() {
-                window.location.href = 'eleves.php';
+                window.location.href = 'eleves.html';
             }, 2000);
-        <?php endif; ?>
+        
     </script>
 </body>
 

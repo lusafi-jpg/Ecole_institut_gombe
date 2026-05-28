@@ -1,0 +1,300 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de Bord de l'Institut de la Gombe 1</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" crossorigin href="/assets/style-CLnKRVwx.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+    <div class="container px-3">
+        <!-- Logo et Nom -->
+        <a class="navbar-brand d-flex align-items-center" href="../index.html">
+            <img src="/assets/IMG-20260123-WA0001-vo7oHMKP.jpg" alt="Logo" class="img-fluid rounded shadow me-2" style="max-height: 40px; width: auto;">
+            <span>Institut de la Gombe</span>
+        </a>
+        
+        <!-- Bouton Mobile -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <!-- Liens du menu -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link active" href="../index.html"><i class="bi bi-house-door me-1"></i>Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../page/apropos.html"><i class="bi bi-info-circle-fill me-1"></i>À propos</a>
+                </li>
+                
+                <!-- Menu déroulant (Dropdown) pour désencombrer la barre -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-grid-fill me-1"></i>Institution
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="../page/historique.html"><i class="bi bi-calendar-week me-2"></i>Historique</a></li>
+                        <li><a class="dropdown-item" href="../page/organigramme.html"><i class="bi bi-person-fill me-2"></i>Organigramme</a></li>
+                       
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../page/services.html"><i class="bi bi-briefcase me-1"></i>Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../page/inscription.html"><i class="bi bi-person-plus me-1"></i>Inscription</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../page/contact.html"><i class="bi bi-telephone-forward me-1"></i>Contact</a>
+                </li>
+                
+                <!-- Bouton Connexion mis en valeur -->
+                <li class="nav-item ms-lg-2">
+                    <a class="btn btn-outline-light btn-sm dynamic-nav-btn" href="../page/connexion.html">
+                        <i class="bi bi-person-rolodex me-1"></i>Connexion
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+    <main class="container">
+        <!-- Page Header -->
+        <div class="hero-section">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h1>Tableau de Bord Administrateur</h1>
+                        <p class="lead">Statistiques et aperçu général de l'établissement</p>
+                    </div>
+                    <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                        <a href="../page/deconnexion.html" class="btn btn-light btn-lg">
+                            <i class="bi bi-box-arrow-up text-second"></i> Déconnexion
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistiques principales -->
+        <section class="mt-4">
+            <h2 class="section-title">Statistiques Générales</h2>
+
+            <div class="row">
+                <div class="col-md-3 mb-4">
+                    <div class="stats-card">
+                        <h3>12</h3>
+                        <p>Total des Élèves</p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="stats-card success">
+                        <h3>7</h3>
+                        <p>Élèves Masculins</p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="stats-card warning">
+                        <h3>5</h3>
+                        <p>Élèves Féminins</p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="stats-card info">
+                        <h3>2024-2025</h3>
+                        <p>Année Scolaire</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Répartition par classe -->
+        <section class="content-section mt-4">
+            <h2 class="section-title">Répartition par Classe</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card card-custom">
+                        <div class="card-header-custom">
+                            <h4 class="mb-0"><i class="bi bi-clipboard-data text-info"></i> Statistiques par Classe</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-2">
+                                <strong>5ème:</strong> 2 élève(s)
+                            </div>
+                            <div class="mb-2">
+                                <strong>4ème:</strong> 2 élève(s)
+                            </div>
+                            <div class="mb-2">
+                                <strong>3ème:</strong> 1 élève(s)
+                            </div>
+                            <div class="mb-2">
+                                <strong>CM2:</strong> 1 élève(s)
+                            </div>
+                            <div class="mb-2">
+                                <strong>6ème:</strong> 1 élève(s)
+                            </div>
+                            <div class="mb-2">
+                                <strong>2nde:</strong> 1 élève(s)
+                            </div>
+                            <div class="mb-2">
+                                <strong>CM1:</strong> 1 élève(s)
+                            </div>
+                            <div class="mb-2">
+                                <strong>1ère:</strong> 1 élève(s)
+                            </div>
+                            <div class="mb-2">
+                                <strong>CE2:</strong> 1 élève(s)
+                            </div>
+                            <div class="mb-2">
+                                <strong>CE1:</strong> 1 élève(s)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card card-custom">
+                        <div class="card-header-custom">
+                            <h4 class="mb-0"><i class="bi bi-info-circle-fill text-warning"></i> Informations</h4>
+                        </div>
+                        <div class="card-body">
+                            <p>Les statistiques sont générées en temps réel à partir des inscriptions enregistrées.</p>
+                            <ul>
+                                <li>Mise à jour automatique à chaque nouvelle inscription</li>
+                                <li>Données basées sur le stockage local</li>
+                                <li>Statistiques pour l'année scolaire en cours</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Actions rapides -->
+        <section class="content-section mt-4">
+            <h2 class="section-title">Actions Rapides</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card card-custom h-100">
+                        <div class="card-body text-center">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;"><i
+                                    class="bi bi-plus-circle text-info"></i></div>
+                            <h4>Nouvelle Inscription</h4>
+                            <p>Enregistrer un nouvel élève dans le système</p>
+                            <a href="inscription.html" class="btn btn-primary-custom">Ajouter un élève</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card card-custom h-100">
+                        <div class="card-body text-center">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;"><i
+                                    class="bi bi-person-lines-fill text-secondary"></i></div>
+                            <h4>Liste des Élèves</h4>
+                            <p>Consulter la liste complète des élèves inscrits</p>
+                            <a href="../page/liste-eleves.html" class="btn btn-primary-custom">Voir la liste</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card card-custom h-100">
+                        <div class="card-body text-center">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;"><i
+                                    class="bi bi-file-earmark-text text-warning"></i></div>
+                            <h4>Rapports</h4>
+                            <p>Générer et consulter les rapports détaillés</p>
+                            <button class="btn btn-secondary-custom">Voir les rapports</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Informations système -->
+        <section class="content-section mt-4">
+            <h2 class="section-title">Informations Système</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card card-custom">
+                        <div class="card-body">
+                            <h5 class="mb-3"><i class="bi bi-database text-success"></i> Stockage des données</h5>
+                            <p>Les données sont actuellement stockées localement dans le navigateur (localStorage).</p>
+                            <p class="mb-0">
+                                <small class="text-muted">
+                                    Pour un système de production, il est recommandé d'utiliser une base de données
+                                    serveur.
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card card-custom">
+                        <div class="card-body">
+                            <h5 class="mb-3"><i class="bi bi-shield-lock text-info"></i> Sécurité</h5>
+                            <p>L'authentification est simulée pour les besoins de la démonstration.</p>
+                            <p class="mb-0">
+                                <small class="text-muted">
+                                    Identifiants de test : admin / admin123
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-custom">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5>institut de la gombe 1</h5>
+                    <p>Votre partenaire dans l'éducation et l'excellence académique.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Liens rapides</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../index.html">Accueil</a></li>
+                        <li><a href="../page/apropos.html">À propos</a></li>
+                        <li><a href="../page/inscription.html">Inscription</a></li>
+                        <li><a href="../page/contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Contact</h5>
+                    <p>
+                        <i class="bi bi-geo-alt text-danger fs-8 me-1"></i> Avenue nzokotolo n°3 Q/cliniques C/gombe
+                        place de l'independance en face du palais de la justice<br>
+                        <i class="bi bi-envelope text-primary fs-8 me-1"></i> contact@ecole-excellence.cd<br>
+                        <i class="bi bi-telephone-fill text-danger fs-8 me-1"></i> +243 812375607
+                    </p>
+                </div>
+            </div>
+            <hr class="my-4" style="border-color: rgba(255,255,255,0.1);">
+            <div class="text-center">
+                <p>&copy; 2024 institut de la gombe 1 Tous droits réservés. | Programme Web I - L2 Math-Info</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

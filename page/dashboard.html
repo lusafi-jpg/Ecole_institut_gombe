@@ -1,11 +1,4 @@
-<?php
-session_start();
-if (!isset($_SESSION['admin_connecte']) || $_SESSION['admin_connecte'] !== true) {
-    // Si pas connecté -> redirection immédiate vers la page de login
-    header('Location: login.php');
-    exit;
-}
-?>
+
 
 
 
@@ -27,7 +20,7 @@ if (!isset($_SESSION['admin_connecte']) || $_SESSION['admin_connecte'] !== true)
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
     <div class="container px-3">
         <!-- Logo et Nom -->
-        <a class="navbar-brand d-flex align-items-center" href="../index.php">
+        <a class="navbar-brand d-flex align-items-center" href="../index.html">
             <img src="../img/IMG-20260123-WA0001.jpg" alt="Logo" class="img-fluid rounded shadow me-2" style="max-height: 40px; width: auto;">
             <span>Institut de la Gombe</span>
         </a>
@@ -41,10 +34,10 @@ if (!isset($_SESSION['admin_connecte']) || $_SESSION['admin_connecte'] !== true)
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto align-items-center">
                 <li class="nav-item">
-                    <a class="nav-link active" href="../index.php"><i class="bi bi-house-door me-1"></i>Accueil</a>
+                    <a class="nav-link active" href="../index.html"><i class="bi bi-house-door me-1"></i>Accueil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../page/apropos.php"><i class="bi bi-info-circle-fill me-1"></i>À propos</a>
+                    <a class="nav-link" href="../page/apropos.html"><i class="bi bi-info-circle-fill me-1"></i>À propos</a>
                 </li>
                 
                 <!-- Menu déroulant (Dropdown) pour désencombrer la barre -->
@@ -53,25 +46,25 @@ if (!isset($_SESSION['admin_connecte']) || $_SESSION['admin_connecte'] !== true)
                         <i class="bi bi-grid-fill me-1"></i>Institution
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="../page/historique.php"><i class="bi bi-calendar-week me-2"></i>Historique</a></li>
-                        <li><a class="dropdown-item" href="../page/organigramme.php"><i class="bi bi-person-fill me-2"></i>Organigramme</a></li>
+                        <li><a class="dropdown-item" href="../page/historique.html"><i class="bi bi-calendar-week me-2"></i>Historique</a></li>
+                        <li><a class="dropdown-item" href="../page/organigramme.html"><i class="bi bi-person-fill me-2"></i>Organigramme</a></li>
                        
                     </ul>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="../page/services.php"><i class="bi bi-briefcase me-1"></i>Services</a>
+                    <a class="nav-link" href="../page/services.html"><i class="bi bi-briefcase me-1"></i>Services</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../page/inscription.php"><i class="bi bi-person-plus me-1"></i>Inscription</a>
+                    <a class="nav-link" href="../page/inscription.html"><i class="bi bi-person-plus me-1"></i>Inscription</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../page/contact.php"><i class="bi bi-telephone-forward me-1"></i>Contact</a>
+                    <a class="nav-link" href="../page/contact.html"><i class="bi bi-telephone-forward me-1"></i>Contact</a>
                 </li>
                 
                 <!-- Bouton Connexion mis en valeur -->
                 <li class="nav-item ms-lg-2">
-                    <a class="btn btn-outline-light btn-sm dynamic-nav-btn" href="../page/connexion.php">
+                    <a class="btn btn-outline-light btn-sm dynamic-nav-btn" href="../page/connexion.html">
                         <i class="bi bi-person-rolodex me-1"></i>Connexion
                     </a>
                 </li>
@@ -89,7 +82,7 @@ if (!isset($_SESSION['admin_connecte']) || $_SESSION['admin_connecte'] !== true)
                         <p class="lead">Statistiques et aperçu général de l'établissement</p>
                     </div>
                     <div class="col-md-4 text-md-end mt-3 mt-md-0">
-                        <a href="../page/deconnexion.php" class="btn btn-light btn-lg">
+                        <a href="../page/deconnexion.html" class="btn btn-light btn-lg">
                             <i class="bi bi-box-arrow-up text-second"></i> Déconnexion
                         </a>
                     </div>
@@ -201,7 +194,7 @@ if (!isset($_SESSION['admin_connecte']) || $_SESSION['admin_connecte'] !== true)
                                     class="bi bi-plus-circle text-info"></i></div>
                             <h4>Nouvelle Inscription</h4>
                             <p>Enregistrer un nouvel élève dans le système</p>
-                            <a href="inscription.php" class="btn btn-primary-custom">Ajouter un élève</a>
+                            <a href="inscription.html" class="btn btn-primary-custom">Ajouter un élève</a>
                         </div>
                     </div>
                 </div>
@@ -212,7 +205,7 @@ if (!isset($_SESSION['admin_connecte']) || $_SESSION['admin_connecte'] !== true)
                                     class="bi bi-person-lines-fill text-secondary"></i></div>
                             <h4>Liste des Élèves</h4>
                             <p>Consulter la liste complète des élèves inscrits</p>
-                            <a href="../page/liste-eleves.php" class="btn btn-primary-custom">Voir la liste</a>
+                            <a href="../page/liste-eleves.html" class="btn btn-primary-custom">Voir la liste</a>
                         </div>
                     </div>
                 </div>
@@ -276,10 +269,10 @@ if (!isset($_SESSION['admin_connecte']) || $_SESSION['admin_connecte'] !== true)
                 <div class="col-md-4 mb-4">
                     <h5>Liens rapides</h5>
                     <ul class="list-unstyled">
-                        <li><a href="../index.php">Accueil</a></li>
-                        <li><a href="../page/apropos.php">À propos</a></li>
-                        <li><a href="../page/inscription.php">Inscription</a></li>
-                        <li><a href="../page/contact.php">Contact</a></li>
+                        <li><a href="../index.html">Accueil</a></li>
+                        <li><a href="../page/apropos.html">À propos</a></li>
+                        <li><a href="../page/inscription.html">Inscription</a></li>
+                        <li><a href="../page/contact.html">Contact</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 mb-4">

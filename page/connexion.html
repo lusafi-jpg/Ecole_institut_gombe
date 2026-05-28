@@ -1,45 +1,4 @@
-//<?php
-    session_start();
-    require_once("database.php");
-
-    $erreur = "";
-
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-         $user = isset($_POST['username']) ? trim($_POST['username']) : '';
-        $mdp = isset($_POST['password']) ? trim($_POST['password']) : '';
-
-        if (!empty($user) && !empty($mdp)) {
-        
-        $sql = "SELECT * FROM utilisateurs WHERE nom_utilisateur = :username LIMIT 1";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([':username' => $user]);
-        $compte = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($compte) {
-            
-            // SOLUTION DE SECOURS : On vérifie le hachage OU si tu as écrit "1234567jki" en clair
-            if (password_verify($mdp, $compte['mot_de_passe']) || $mdp === '1234567jki') {
-                
-                $_SESSION['admin_id'] = $compte['id'];
-                $_SESSION['admin_username'] = $compte['nom_utilisateur'];
-                $_SESSION['admin_connecte'] = true;
-
-                // Redirection immédiate vers ta page d'inscription
-                header('Location: dashboard.php'); 
-                exit;
-                
-            } else {
-                $erreur = "Identifiants incorrects (Mot de passe refusé).";
-            }
-        } else {
-            $erreur = "Utilisateur introuvable dans la base de données.";
-        }
-    } else {
-        $erreur = "Veuillez remplir tous les champs.";
-    }
-    }
-
-?>
+//
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -59,7 +18,7 @@
    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
     <div class="container px-3">
         <!-- Logo et Nom -->
-        <a class="navbar-brand d-flex align-items-center" href="../index.php">
+        <a class="navbar-brand d-flex align-items-center" href="../index.html">
             <img src="../img/IMG-20260123-WA0001.jpg" alt="Logo" class="img-fluid rounded shadow me-2" style="max-height: 40px; width: auto;">
             <span>Institut de la Gombe</span>
         </a>
@@ -73,10 +32,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto align-items-center">
                 <li class="nav-item">
-                    <a class="nav-link active" href="../index.php"><i class="bi bi-house-door me-1"></i>Accueil</a>
+                    <a class="nav-link active" href="../index.html"><i class="bi bi-house-door me-1"></i>Accueil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../page/apropos.php"><i class="bi bi-info-circle-fill me-1"></i>À propos</a>
+                    <a class="nav-link" href="../page/apropos.html"><i class="bi bi-info-circle-fill me-1"></i>À propos</a>
                 </li>
                 
                 <!-- Menu déroulant (Dropdown) pour désencombrer la barre -->
@@ -85,24 +44,24 @@
                         <i class="bi bi-grid-fill me-1"></i>Institution
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="../page/historique.php"><i class="bi bi-calendar-week me-2"></i>Historique</a></li>
-                        <li><a class="dropdown-item" href="../page/organigramme.php"><i class="bi bi-person-fill me-2"></i>Organigramme</a></li>
+                        <li><a class="dropdown-item" href="../page/historique.html"><i class="bi bi-calendar-week me-2"></i>Historique</a></li>
+                        <li><a class="dropdown-item" href="../page/organigramme.html"><i class="bi bi-person-fill me-2"></i>Organigramme</a></li>
                         
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="../page/services.php"><i class="bi bi-briefcase me-1"></i>Services</a>
+                    <a class="nav-link" href="../page/services.html"><i class="bi bi-briefcase me-1"></i>Services</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../page/inscription.php"><i class="bi bi-person-plus me-1"></i>Inscription</a>
+                    <a class="nav-link" href="../page/inscription.html"><i class="bi bi-person-plus me-1"></i>Inscription</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../page/contact.php"><i class="bi bi-telephone-forward me-1"></i>Contact</a>
+                    <a class="nav-link" href="../page/contact.html"><i class="bi bi-telephone-forward me-1"></i>Contact</a>
                 </li>
                 
                 <!-- Bouton Connexion mis en valeur -->
                 <li class="nav-item ms-lg-2">
-                    <a class="btn btn-outline-light btn-sm dynamic-nav-btn" href="../page/connexion.php">
+                    <a class="btn btn-outline-light btn-sm dynamic-nav-btn" href="../page/connexion.html">
                         <i class="bi bi-person-rolodex me-1"></i>Connexion
                     </a>
                 </li>
@@ -120,7 +79,7 @@
                             <h3 class="mb-0"><i class="bi bi-key "></i> Authentification</h3>
                         </div>
                         <div class="card-body">
-                            <form action="connexion.php" method="POST">
+                            <form action="connexion.html" method="POST">
                                 <!-- Nom d'utilisateur -->
                                 <div class="mb-3">
                                     <label for="username" class="form-label">Nom d'utilisateur *</label>
@@ -160,7 +119,7 @@
 
                     <!-- Lien retour -->
                     <div class="text-center mt-4">
-                        <a href="../index.php" class="btn btn-outline-secondary">← Retour à l'accueil</a>
+                        <a href="../index.html" class="btn btn-outline-secondary">← Retour à l'accueil</a>
                     </div>
                 </div>
             </div>
@@ -200,10 +159,10 @@
                 <div class="col-md-4 mb-4">
                     <h5>Liens rapides</h5>
                     <ul class="list-unstyled">
-                        <li><a href="../index.php">Accueil</a></li>
-                        <li><a href="../page/apropos.php">À propos</a></li>
-                        <li><a href="../page/inscription.php">Inscription</a></li>
-                        <li><a href="../page/contact.php">Contact</a></li>
+                        <li><a href="../index.html">Accueil</a></li>
+                        <li><a href="../page/apropos.html">À propos</a></li>
+                        <li><a href="../page/inscription.html">Inscription</a></li>
+                        <li><a href="../page/contact.html">Contact</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 mb-4">

@@ -1,64 +1,4 @@
-<?php
-require_once("database.php");
-// 2. Traitement des données du formulaire
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    
-    // Récupération et nettoyage initial des données (protection XSS)
-    $nom = isset($_POST['nom']) ? trim(htmlspecialchars($_POST['nom'])) : '';
-    $prenom = isset($_POST['prenom']) ? trim(htmlspecialchars($_POST['prenom'])) : '';
-    $sexe = isset($_POST['sexe']) ? trim($_POST['sexe']) : '';
-    $date_naissance = isset($_POST['date_naissance']) ? trim($_POST['date_naissance']) : '';
-    $classe = isset($_POST['classe']) ? trim($_POST['classe']) : '';
-    $telephone = isset($_POST['telephone']) ? trim($_POST['telephone']) : '';
 
-    $erreurs = [];
-
-    // 3. Validations des champs obligatoires
-    if (empty($nom)) $erreurs[] = "Le nom est obligatoire.";
-    if (empty($prenom)) $erreurs[] = "Le prénom est obligatoire.";
-    if (!in_array($sexe, ['M', 'F'])) $erreurs[] = "Le sexe sélectionné est invalide.";
-    if (empty($date_naissance)) $erreurs[] = "La date de naissance est obligatoire.";
-    if (empty($classe) || $classe === 'Sélectionnez une classe') $erreurs[] = "Veuillez sélectionner une classe.";
-    
-    // Validation du téléphone (9 à 10 chiffres, sans espaces)
-    if (!preg_match('/^[0-9]{9,10}$/', $telephone)) {
-        $erreurs[] = "Le numéro de téléphone doit contenir entre 9 et 10 chiffres, sans espaces.";
-    }
-
-    // 4. Insertion si aucune erreur
-    if (empty($erreurs)) {
-        try {
-            $sql = "INSERT INTO inscriptions (nom, prenom, sexe, date_naissance, classe, telephone) 
-                    VALUES (:nom, :prenom, :sexe, :date_naissance, :classe, :telephone)";
-            
-            $stmt = $pdo->prepare($sql);
-            
-            $stmt->execute([
-                ':nom' => $nom,
-                ':prenom' => $prenom,
-                ':sexe' => $sexe,
-                ':date_naissance' => $date_naissance,
-                ':classe' => $classe,
-                ':telephone' => $telephone
-            ]);
-
-            // Succès : Redirection ou message
-            echo "<div style='color: green; font-weight: bold;'>Inscription enregistrée avec succès !</div>";
-            
-        } catch (PDOException $e) {
-            echo "<div style='color: red;'>Erreur lors de l'enregistrement : " . $e->getMessage() . "</div>";
-        }
-    } else {
-        // Affichage des erreurs de validation
-        echo "<div style='color: red; font-weight: bold;'>Veuillez corriger les erreurs suivantes :</div>";
-        echo "<ul>";
-        foreach ($erreurs as $erreur) {
-            echo "<li>$erreur</li>";
-        }
-        echo "</ul>";
-    }
-}
-?>
 
 
 
@@ -80,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
     <div class="container px-3">
         <!-- Logo et Nom -->
-        <a class="navbar-brand d-flex align-items-center" href="../index.php">
+        <a class="navbar-brand d-flex align-items-center" href="../index.html">
             <img src="../img/IMG-20260123-WA0001.jpg" alt="Logo" class="img-fluid rounded shadow me-2" style="max-height: 40px; width: auto;">
             <span>Institut de la Gombe</span>
         </a>
@@ -94,10 +34,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto align-items-center">
                 <li class="nav-item">
-                    <a class="nav-link active" href="../index.php"><i class="bi bi-house-door me-1"></i>Accueil</a>
+                    <a class="nav-link active" href="../index.html"><i class="bi bi-house-door me-1"></i>Accueil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../page/apropos.php"><i class="bi bi-info-circle-fill me-1"></i>À propos</a>
+                    <a class="nav-link" href="../page/apropos.html"><i class="bi bi-info-circle-fill me-1"></i>À propos</a>
                 </li>
                 
                 <!-- Menu déroulant (Dropdown) pour désencombrer la barre -->
@@ -106,25 +46,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <i class="bi bi-grid-fill me-1"></i>Institution
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="../page/historique.php"><i class="bi bi-calendar-week me-2"></i>Historique</a></li>
-                        <li><a class="dropdown-item" href="../page/organigramme.php"><i class="bi bi-person-fill me-2"></i>Organigramme</a></li>
+                        <li><a class="dropdown-item" href="../page/historique.html"><i class="bi bi-calendar-week me-2"></i>Historique</a></li>
+                        <li><a class="dropdown-item" href="../page/organigramme.html"><i class="bi bi-person-fill me-2"></i>Organigramme</a></li>
                        
                     </ul>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="../page/services.php"><i class="bi bi-briefcase me-1"></i>Services</a>
+                    <a class="nav-link" href="../page/services.html"><i class="bi bi-briefcase me-1"></i>Services</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../page/inscription.php"><i class="bi bi-person-plus me-1"></i>Inscription</a>
+                    <a class="nav-link" href="../page/inscription.html"><i class="bi bi-person-plus me-1"></i>Inscription</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../page/contact.php"><i class="bi bi-telephone-forward me-1"></i>Contact</a>
+                    <a class="nav-link" href="../page/contact.html"><i class="bi bi-telephone-forward me-1"></i>Contact</a>
                 </li>
                 
                 <!-- Bouton Connexion mis en valeur -->
                 <li class="nav-item ms-lg-2">
-                    <a class="btn btn-outline-light btn-sm dynamic-nav-btn" href="../page/connexion.php">
+                    <a class="btn btn-outline-light btn-sm dynamic-nav-btn" href="../page/connexion.html">
                         <i class="bi bi-person-rolodex me-1"></i>Connexion
                     </a>
                 </li>
@@ -151,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <h3 class="mb-0">Formulaire d'Inscription</h3>
                         </div>
                         <div class="card-body">
-                            <form action="inscription.php" method="POST">
+                            <form action="inscription.html" method="POST">
                                 <!-- Nom -->
                                 <div class="mb-3">
                                     <label for="nom" class="form-label">Nom *</label>
@@ -278,10 +218,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="col-md-4 mb-4">
                     <h5>Liens rapides</h5>
                     <ul class="list-unstyled">
-                        <li><a href="../index.php">Accueil</a></li>
-                        <li><a href="../page/apropos.php">À propos</a></li>
-                        <li><a href="../page/inscription.php">Inscription</a></li>
-                        <li><a href="../page/contact.php">Contact</a></li>
+                        <li><a href="../index.html">Accueil</a></li>
+                        <li><a href="../page/apropos.html">À propos</a></li>
+                        <li><a href="../page/inscription.html">Inscription</a></li>
+                        <li><a href="../page/contact.html">Contact</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 mb-4">

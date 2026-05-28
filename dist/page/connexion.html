@@ -1,0 +1,190 @@
+//
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion Administrateur - Institut de la Gombe 1</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" crossorigin href="/assets/style-CLnKRVwx.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+   <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+    <div class="container px-3">
+        <!-- Logo et Nom -->
+        <a class="navbar-brand d-flex align-items-center" href="../index.html">
+            <img src="/assets/IMG-20260123-WA0001-vo7oHMKP.jpg" alt="Logo" class="img-fluid rounded shadow me-2" style="max-height: 40px; width: auto;">
+            <span>Institut de la Gombe</span>
+        </a>
+        
+        <!-- Bouton Mobile -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <!-- Liens du menu -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link active" href="../index.html"><i class="bi bi-house-door me-1"></i>Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../page/apropos.html"><i class="bi bi-info-circle-fill me-1"></i>À propos</a>
+                </li>
+                
+                <!-- Menu déroulant (Dropdown) pour désencombrer la barre -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-grid-fill me-1"></i>Institution
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="../page/historique.html"><i class="bi bi-calendar-week me-2"></i>Historique</a></li>
+                        <li><a class="dropdown-item" href="../page/organigramme.html"><i class="bi bi-person-fill me-2"></i>Organigramme</a></li>
+                        
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../page/services.html"><i class="bi bi-briefcase me-1"></i>Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../page/inscription.html"><i class="bi bi-person-plus me-1"></i>Inscription</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../page/contact.html"><i class="bi bi-telephone-forward me-1"></i>Contact</a>
+                </li>
+                
+                <!-- Bouton Connexion mis en valeur -->
+                <li class="nav-item ms-lg-2">
+                    <a class="btn btn-outline-light btn-sm dynamic-nav-btn" href="../page/connexion.html">
+                        <i class="bi bi-person-rolodex me-1"></i>Connexion
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+        <!-- Formulaire de connexion -->
+        <section class="content-section mt-4">
+            <div class="row justify-content-center">
+                <div class="col-lg-5 col-md-7">
+                    <div class="card card-custom">
+                        <div class="card-header-custom">
+                            <h3 class="mb-0"><i class="bi bi-key "></i> Authentification</h3>
+                        </div>
+                        <div class="card-body">
+                            <form action="connexion.html" method="POST">
+                                <!-- Nom d'utilisateur -->
+                                <div class="mb-3">
+                                    <label for="username" class="form-label">Nom d'utilisateur *</label>
+                                    <input type="text" class="form-control" id="username" name="username" required
+                                        placeholder="Entrez votre nom d'utilisateur" autocomplete="username">
+                                </div>
+
+                                <!-- Mot de passe -->
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Mot de passe *</label>
+                                    <input type="password" class="form-control" id="password" name="password" required
+                                        placeholder="Entrez votre mot de passe" autocomplete="current-password">
+                                </div>
+
+                                <!-- Se souvenir -->
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="remember">
+                                    <label class="form-check-label" for="remember">
+                                        Se souvenir de moi
+                                    </label>
+                                </div>
+
+                                <!-- Bouton de soumission -->
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary-custom btn-lg">Se connecter</button>
+                                </div>
+                            </form>
+
+                            <!-- Information de test -->
+                            <div class="alert alert-info alert-custom mt-4">
+                                <strong>Information de test :</strong><br>
+                                Nom d'utilisateur: <code>admin</code><br>
+                                Mot de passe: <code>admin123</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lien retour -->
+                    <div class="text-center mt-4">
+                        <a href="../index.html" class="btn btn-outline-secondary">← Retour à l'accueil</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Informations de sécurité -->
+        <section class="content-section mt-4">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-custom">
+                        <div class="card-body">
+                            <h5 class="mb-3"><i class="bi bi-shield-lock text-warning"></i> Sécurité</h5>
+                            <p>
+                                Cette page est réservée au personnel administratif de l'Institut de la Gombe 1.
+                                L'accès au tableau de bord nécessite des identifiants valides.
+                            </p>
+                            <p class="mb-0">
+                                <small class="text-muted">
+                                    En cas de perte de vos identifiants, veuillez contacter l'administrateur système.
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-custom">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5>Institut de la Gombe 1</h5>
+                    <p>Votre partenaire dans l'éducation et l'excellence académique.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Liens rapides</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../index.html">Accueil</a></li>
+                        <li><a href="../page/apropos.html">À propos</a></li>
+                        <li><a href="../page/inscription.html">Inscription</a></li>
+                        <li><a href="../page/contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Contact</h5>
+                    <p>
+                        <i class="bi bi-geo-alt text-danger fs-8 me-1"></i> Avenue nzokotolo n°3 Q/cliniques C/gombe
+                        place de l'independance en face du palais de la justice<br>
+                        <i class="bi bi-envelope text-primary fs-8 me-1"></i> contact@ecole-excellence.cd<br>
+                        <i class="bi bi-telephone-fill text-danger fs-8 me-1"></i> +243 812375607
+                    </p>
+                </div>
+            </div>
+            <hr class="my-4" style="border-color: rgba(255,255,255,0.1);">
+            <div class="text-center">
+                <p>&copy; 2024 Institut de la Gombe 1 Tous droits réservés. | Programme Web I - L2 Math-Info</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
